@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="plugins/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h3>Usuarios</h3>
+            <div>
+                <a href="user.html" class="btn btn-secondary">Buscar</a>
+
+
+            </div>
+        </div>
+    
+        <div class="card-body">
+            <div class="result">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Titulo</th>
+                            <th>Completado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                                          
+                    </tbody>
+                </table>
+            </div>      
+        </div>
+    </div>
+
+
+    <script src="plugins/jquery.min.js"></script>
+    <script src="plugins/popper.min.js"></script>
+    <script src="plugins/bootstrap.min.js"></script>
+    <script src="plugins/axios.min.js"></script>
+
+    <script>
+        axios.get('/api/users').then( resp => {
+            if(resp.data){
+                let template = '';                
+                for(let u of resp.data.users){
+                    console.log(u);
+                    template+=`<tr>
+                            <td scope="row">${u.userId}</td>
+                            <td>${u.title}</td>
+                            <td>${u.completed}</td>
+                        </tr>`;
+                }
+                $('#table').html(template);
+            }
+        })
+    </script>
+
+</body>
+</html>
